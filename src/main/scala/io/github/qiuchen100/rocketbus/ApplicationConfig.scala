@@ -8,6 +8,6 @@ import org.apache.spark.internal.Logging
  * @Date: 2020/3/24 0:06
  * @Modified By: 
  **/
-object ApplicationConfig extends Logging {
+class ApplicationConfig extends Logging {
 
 }
