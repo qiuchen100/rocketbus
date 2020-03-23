@@ -12,7 +12,7 @@ RocketBus是一款基于Spark Sql/Spark Structured Streaming的ETL开发工具�
 的所在路径即可。
 3.  **一个作业的基本单位是Process（流程）。** 在RocketBus的世界里，最基本的单位是Process。Process分为InputProcess、ComputeProcess、和OutputProcess三种。一个作业是由至少一个InputProcess，至少一个ComputeProcess和至少一个OutputProcess所构成。这些Process的彼此依赖关系共同构成一个作业的DAG图。
 4.  **事物的共性比个性更重要。** 我们所面对，所解决的主要是这类通用化，大众化的问题，基本上能满足绝大多数离线和实时作业。当然，对于个性化的问题，我们也做到求同存异，提供第三方接口标准，供实现定制化需求。
-
+5.  ** 提供更优的而不是面面俱到的。** Spark SQL编程模型较老一代Spark Rdd优秀的地方在于它不仅统一了离线和实时作业编程接口，还对不同类型的输入、输出，以及中间的计算环节提供了统一的接口标准。而我们之所以大胆放弃兼容Spark2.0.0以下版本，完全是为了提供更好，更优的一套方案。Spark Rdd并未针对不同类型的输入、输出提供统一的接口标准，且参数配置，优化方面更繁琐。如果我们要同时兼容这两套API，必然用户在使用起来也是繁琐不友好的。况且Spark社区的主要精力也是放在了对于Spark SQL编程模型的优化上，所以此时我们没有必要做到向下兼容。 
 
 #### 软件架构
 软件架构说明
