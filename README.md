@@ -10,7 +10,7 @@ RocketBus是一款基于Spark Sql/Spark Structured Streaming的ETL开发工具�
 1.  **约定优先于配置，配置优先于实现。** RocketBus作业配置参数完全依照Spark作业配置参数，且提供了管理维护作业所必须要的参数设置。
 2.  **一个配置文件对应一个作业。** 用户想借助RocketBus配置一个作业，仅需按照约定提供一个配置文件，并按照相应的命令启动，同时传入配置文件
 的所在路径即可。
-3.  **一个作业的基本单位是Process（流程）。**在RocketBus的世界里，最基本的单位是Process。Process分为InputProcess、ComputeProcess、和OutputProcess三种。一个作业是由至少一个InputProcess，至少一个ComputeProcess和至少一个OutputProcess所构成。这些Process的彼此依赖关系共同构成一个作业的DAG图。
+3.  **一个作业的基本单位是Process（流程）。** 在RocketBus的世界里，最基本的单位是Process。Process分为InputProcess、ComputeProcess、和OutputProcess三种。一个作业是由至少一个InputProcess，至少一个ComputeProcess和至少一个OutputProcess所构成。这些Process的彼此依赖关系共同构成一个作业的DAG图。
 
 
 #### 软件架构
