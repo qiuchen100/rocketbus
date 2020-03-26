@@ -7,5 +7,6 @@ package io.github.qiuchen100.rocketbus.api
  * @Modified By:
  **/
 trait InputProcess extends Process {
+  val processType = "input"
 
 }

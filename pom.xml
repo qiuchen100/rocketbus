@@ -21,6 +21,10 @@
     <scala.tools.version>2.11</scala.tools.version>
     <scala.version>2.11.8</scala.version>
     <spark.version>2.4.0-cdh6.1.1</spark.version>
+    <mysql.version>5.1.45</mysql.version>
+    <scalikejdbc.version>2.5.0</scalikejdbc.version>
+    <dbcp2.version>2.1.1</dbcp2.version>
+    <hoodie.version>0.5.1-incubating</hoodie.version>
   </properties>
 
   <dependencies>
@@ -33,25 +37,25 @@
     <!-- Spark -->
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-core_2.11</artifactId>
+      <artifactId>spark-core_${scala.tools.version}</artifactId>
       <version>${spark.version}</version>
       <!--      <scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-streaming_2.11</artifactId>
+      <artifactId>spark-streaming_${scala.tools.version}</artifactId>
       <version>${spark.version}</version>
       <!--      <scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-streaming-kafka-0-10_2.11</artifactId>
+      <artifactId>spark-streaming-kafka-0-10_${scala.tools.version}</artifactId>
       <version>${spark.version}</version>
       <!--      <scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-sql_2.11</artifactId>
+      <artifactId>spark-sql_${scala.tools.version}</artifactId>
       <version>${spark.version}</version>
       <!--      <scope>provided</scope>-->
     </dependency>
@@ -60,7 +64,31 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.45</version>
+      <version>${mysql.version}</version>
+    </dependency>
+
+    <!-- scalikejdbc -->
+    <dependency>
+      <groupId>org.scalikejdbc</groupId>
+      <artifactId>scalikejdbc_2.11</artifactId>
+      <version>${scalikejdbc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.scalikejdbc</groupId>
+      <artifactId>scalikejdbc-config_2.11</artifactId>
+      <version>${scalikejdbc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <version>${dbcp2.version}</version>
+    </dependency>
+
+    <!-- hudi -->
+    <dependency>
+      <groupId>org.apache.hudi</groupId>
+      <artifactId>hudi-spark-bundle_2.11</artifactId>
+      <version>${hoodie.version}</version>
     </dependency>
 
     <!-- Test -->

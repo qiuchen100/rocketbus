@@ -7,5 +7,6 @@ package io.github.qiuchen100.rocketbus.api
  * @Modified By:
  **/
 trait OutputProcess extends Process {
-
+  val processType = "output"
 }
+
