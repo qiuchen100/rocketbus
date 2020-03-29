@@ -9,7 +9,11 @@ import org.apache.spark.sql.SparkSession
  * @Date: 2020/3/23 23:29
  * @Modified By:
  **/
-trait Process extends Logging {
-  def execute(sparkSession : SparkSession, name: String, conf: Map[String, String]) : Unit
+trait Process {
+  val processType : String
 
+  def execute(): Unit
+
+  def description: String
 }
+
