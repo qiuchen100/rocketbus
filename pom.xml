@@ -39,25 +39,25 @@
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-core_${scala.tools.version}</artifactId>
       <version>${spark.version}</version>
-      <!--      <scope>provided</scope>-->
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-streaming_${scala.tools.version}</artifactId>
       <version>${spark.version}</version>
-      <!--      <scope>provided</scope>-->
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-streaming-kafka-0-10_${scala.tools.version}</artifactId>
       <version>${spark.version}</version>
-      <!--      <scope>provided</scope>-->
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-sql_${scala.tools.version}</artifactId>
       <version>${spark.version}</version>
-      <!--      <scope>provided</scope>-->
+      <scope>provided</scope>
     </dependency>
 
     <!-- Mysql -->
@@ -117,7 +117,6 @@
             </goals>
             <configuration>
               <args>
-                <arg>-make:transitive</arg>
                 <arg>-dependencyfile</arg>
                 <arg>${project.build.directory}/.scala_dependencies</arg>
               </args>
@@ -142,6 +141,7 @@
       </plugin>
     </plugins>
   </build>
+
   <repositories>
     <repository>
       <id>cloudera</id>
