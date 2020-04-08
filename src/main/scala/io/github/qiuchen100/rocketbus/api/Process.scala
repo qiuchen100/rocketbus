@@ -1,7 +1,5 @@
 package io.github.qiuchen100.rocketbus.api
 
-import org.apache.spark.internal.Logging
-import org.apache.spark.sql.SparkSession
 
 /**
  * @Author: github.com/qiuchen100
@@ -10,7 +8,11 @@ import org.apache.spark.sql.SparkSession
  * @Modified By:
  **/
 trait Process {
+  def getProcessName : String
+
   val processType : String
+
+  def getDependencies : Array[String]
 
   def execute(): Unit
 

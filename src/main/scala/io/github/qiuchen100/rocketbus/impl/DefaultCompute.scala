@@ -10,8 +10,9 @@ import org.apache.spark.storage.StorageLevel
  * @Date: 2020/3/28 23:49
  * @Modified By:
  **/
-class DefaultCompute(sparkSession : SparkSession, processName: String, conf: Map[String, String])
-  extends AbstractCompute(sparkSession, processName, conf) {
+class DefaultCompute(sparkSession : SparkSession, processName: String,
+                     sql : String, isPersist : Boolean, dependencies : Array[String], conf: Map[String, String])
+  extends AbstractCompute(sparkSession, processName, sql, isPersist, dependencies, conf) {
 
   private var _dataFrame : DataFrame = _
 

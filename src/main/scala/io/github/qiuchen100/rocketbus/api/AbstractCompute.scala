@@ -8,12 +8,11 @@ import org.apache.spark.sql.SparkSession
  * @Date: 2020/3/28 16:23
  * @Modified By: 
  **/
-abstract class AbstractCompute(sparkSession : SparkSession, processName: String, conf: Map[String, String])
+abstract class AbstractCompute(sparkSession : SparkSession, processName: String,
+                               sql : String, isPersist : Boolean, dependencies : Array[String], conf: Map[String, String])
   extends ComputeProcess{
 
-  val isPersist : Boolean = conf.contains("persist")
-
-  val sql : String = conf(sql)
+  def getProcessName: String = processName
 
   def description: String = {
     var result = "{"
@@ -21,8 +20,11 @@ abstract class AbstractCompute(sparkSession : SparkSession, processName: String,
     result += ", processType : " + this.processType
     result += (if (isPersist) ", persist : " + conf("persist") else "")
     result += ", sql : " + this.sql
+    result += ", conf : " + this.conf.toString
     result = "}"
     result
   }
+
+  def getDependencies: Array[String] = this.dependencies
 }
 

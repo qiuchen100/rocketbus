@@ -1,4 +1,4 @@
-package com.qihoo.finance.rtos.hudi.impl
+package io.github.qiuchen100.rocketbus.impl
 
 import io.github.qiuchen100.rocketbus.api.AbstractInput
 import org.apache.spark.sql.{DataFrame, SparkSession}
@@ -9,26 +9,24 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
  * @Date: 2020/3/28 23:49
  * @Modified By:
  **/
-class DefaultInput(sparkSession: SparkSession, processName: String, processMode: String, conf: Map[String, String]) extends
-  AbstractInput(sparkSession, processName, processMode, conf) {
+class DefaultInput(sparkSession : SparkSession, processName: String, processMode: String,
+                   format: String, conf: Map[String, String])
+  extends AbstractInput(sparkSession, processName, processMode, format, conf) {
 
   private var _dataFrame: DataFrame = _
 
-  private val _format = conf("format")
-
-  override def execute(): Unit = {
-    val options = conf.filter(_._1 != "format")
+  def execute(): Unit = {
 
     if (processMode == "batch") {
       _dataFrame = sparkSession.read
-        .format(_format)
-        .options(options)
+        .format(format)
+        .options(conf)
         .load()
       _dataFrame.createOrReplaceTempView(processName)
     } else if (processMode == "stream") {
       _dataFrame = sparkSession.readStream
-        .format(_format)
-        .options(options)
+        .format(format)
+        .options(conf)
         .load()
       _dataFrame.createOrReplaceTempView(processName)
     } else {

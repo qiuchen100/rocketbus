@@ -8,22 +8,27 @@ import org.apache.spark.sql.SparkSession
  * @Date: 2020/3/28 16:23
  * @Modified By:
  **/
-abstract class AbstractInput(sparkSession: SparkSession, processName: String, processMode: String,
-                            format: String, conf: Map[String, String])
-  extends InputProcess {
+abstract class AbstractStart(appName: String, appMode: String, conf: Map[String, String])
+  extends StartProcess{
+
+  val processName: String = "start"
 
   def getProcessName: String = processName
 
+  var _sparkSession : SparkSession
+
+  def getSparkSession : SparkSession = _sparkSession
+
+
   def description: String = {
     var result = "{"
-    result += "processName : " + this.processName
+    result += "appName : " + this.appName
+    result += ", appMode : " + this.appMode
     result += ", processType : " + this.processType
-    result += ", processMode : " + this.processMode
-    result += ", format : " + this.format
     result += ", conf : " + this.conf.toString
     result = "}"
     result
   }
 
-  def getDependencies = Array("start")
+  def getDependencies : Array[String] = Nil.toArray
 }

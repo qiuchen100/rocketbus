@@ -16,6 +16,13 @@ object ApplicationPlayground {
     }
 
     val applicationConfig  = new ApplicationConfig(args(0))
-
+    val applicationContext = new ApplicationContext(applicationConfig)
+    val applicationModel = applicationContext.createApplicationModel()
+    val dag = applicationModel.CreateDAG
+    for (processList <- dag) {
+      for (process <- processList) {
+        process.execute()
+      }
+    }
   }
 }

@@ -9,9 +9,9 @@ package io.github.qiuchen100.rocketbus
  **/
 class ApplicationConfig(configFilePath: String) {
   private val rootConfig = Configuration(configFilePath)
-  rootConfig.assertPathExists("application", "input", "compute", "output")
+  rootConfig.assertPathExists("global", "input", "compute", "output")
 
-  private var _applicationConfig: Configuration = _
+  private var _globalConfig: Configuration = _
 
   private var _inputConfigs: Configuration = _
 
@@ -19,18 +19,18 @@ class ApplicationConfig(configFilePath: String) {
 
   private var _outputConfigs: Configuration = _
 
-  private var _inputProcessConfig: Map[String, Configuration] = _
+  private var _inputProcessConfigs: Map[String, Configuration] = _
 
-  private var _computeProcessConfig: Map[String, Configuration] = _
+  private var _computeProcessConfigs: Map[String, Configuration] = _
 
-  private var _outputProcessConfig: Map[String, Configuration] = _
+  private var _outputProcessConfigs: Map[String, Configuration] = _
 
 
   private[this] def loadAndValidConfig = {
 
-    _applicationConfig = rootConfig.getConfig("application")
+    _globalConfig = rootConfig.getConfig("global")
 
-    _applicationConfig.assertValueExists("appName")
+    _globalConfig.assertValueExists("appName", "appMode")
 
     _inputConfigs = rootConfig.getConfig("input")
 
@@ -38,17 +38,17 @@ class ApplicationConfig(configFilePath: String) {
 
     _outputConfigs = rootConfig.getConfig("output")
 
-    _inputProcessConfig = getProcessConfigs("input")
+    _inputProcessConfigs = getProcessConfigs("input")
 
-    _computeProcessConfig = getProcessConfigs("compute")
+    _computeProcessConfigs = getProcessConfigs("compute")
 
-    _outputProcessConfig = getProcessConfigs("output")
+    _outputProcessConfigs = getProcessConfigs("output")
   }
 
   private[this] def loadAndValidProcessConfig(configType: String, path: String) = {
     val config = configType match {
       case "input" => {
-        _inputConfigs.getConfig(path).assertValueExists("format", "jobtype")
+        _inputConfigs.getConfig(path).assertValueExists("format", "processMode")
         _inputConfigs.getConfig(path)
       }
       case "compute" => {
@@ -56,7 +56,7 @@ class ApplicationConfig(configFilePath: String) {
         _computeConfigs.getConfig(path)
       }
       case "output" => {
-        _outputConfigs.getConfig(path).assertValueExists("type", "dependencies")
+        _outputConfigs.getConfig(path).assertValueExists("format", "processMode", "sql", "dependencies")
         _outputConfigs.getConfig(path)
       }
     }
@@ -70,15 +70,15 @@ class ApplicationConfig(configFilePath: String) {
       .toMap
   }
 
-  def applicationConfig = _applicationConfig.getConfigMap()
+  def globalConfig = _globalConfig.getConfigMap()
 
-  def inputProcessConfig = _inputProcessConfig
+  def inputProcessConfigs = _inputProcessConfigs
     .map(confs => (confs._1, confs._2.getConfigMap()))
 
-  def computeProcessConfig = _computeProcessConfig
+  def computeProcessConfigs = _computeProcessConfigs
     .map(confs => (confs._1, confs._2.getConfigMap()))
 
-  def outputProcessConfig = _outputProcessConfig
+  def outputProcessConfigs = _outputProcessConfigs
     .map(confs => (confs._1, confs._2.getConfigMap()))
 
   loadAndValidConfig
@@ -89,13 +89,13 @@ object ApplicationConfig {
 
   def print(): Unit = {
     val applicationConfig = new ApplicationConfig("e://application.production.conf")
-    println("----------application----------------")
-    println(applicationConfig.applicationConfig)
+    println("----------global----------------")
+    println(applicationConfig.globalConfig)
     println("----------input----------------")
-    println(applicationConfig.inputProcessConfig)
+    println(applicationConfig.inputProcessConfigs)
     println("----------compute----------------")
-    println(applicationConfig.computeProcessConfig)
+    println(applicationConfig.computeProcessConfigs)
     println("----------output----------------")
-    println(applicationConfig.outputProcessConfig)
+    println(applicationConfig.outputProcessConfigs)
   }
 }
