@@ -86,7 +86,7 @@ object Configuration {
   }
 
   def main(args: Array[String]): Unit = {
-    val conf = Configuration("e://application.production.conf")
+    val conf = Configuration("d://work//ubas_nu_test.conf")
     //    println(conf.getStringValue("spark.spark1.master"))
     //    val sparkConf = conf.getConfig("spark")
     //    println(sparkConf.getStringValue("spark1.master"))

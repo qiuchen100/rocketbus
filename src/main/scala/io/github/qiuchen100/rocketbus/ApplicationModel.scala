@@ -20,9 +20,9 @@ class ApplicationModel {
 
   var endProcess : AbstractEnd = _
 
-  var dagList : ListBuffer[ListBuffer[Process]] = _
+  var dagList : ListBuffer[ListBuffer[Process]] = ListBuffer[ListBuffer[Process]]()
 
-  def dagProcessNames = {
+  def dagProcessNames: Set[String] = {
     dagList.flatMap(_.toSeq)
       .map(process => process.getProcessName)
       .toSet
@@ -31,7 +31,7 @@ class ApplicationModel {
   def putDAGProcess(processList : ListBuffer[Process]) = {
     while (!processList.isEmpty) {
       val listBuffer = ListBuffer[Process]()
-      for (process <- computeProcess) {
+      for (process <- processList) {
         if (process.getDependencies.toSet.subsetOf(dagProcessNames)){
           listBuffer.append(process)
         }
@@ -42,7 +42,6 @@ class ApplicationModel {
   }
 
   def CreateDAG : ListBuffer[ListBuffer[Process]] = {
-
     dagList.append(ListBuffer(startProcess))
     dagList.append(ListBuffer(inputProcess : _*))
     putDAGProcess(ListBuffer(computeProcess : _*))

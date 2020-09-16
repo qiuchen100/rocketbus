@@ -8,6 +8,6 @@ public class ApplicationManagerTest {
 
     @Test
     public void main() {
-
+        System.out.println("test ");
     }
 }

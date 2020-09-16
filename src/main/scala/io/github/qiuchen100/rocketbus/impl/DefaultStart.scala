@@ -12,26 +12,27 @@ import io.github.qiuchen100.rocketbus.api._
  **/
 class DefaultStart(appName: String, appMode: String, conf: Map[String, String])
   extends AbstractStart(appName, appMode, conf){
-  override var _sparkSession: SparkSession = _
+  override var _sparkSession: SparkSession = SparkSessionSingleton.getInstance(appName, conf)
 
   override def execute(): Unit = {
-    _sparkSession = SparkSessionSingleton.getInstance(appName, conf)
+    //    _sparkSession = SparkSessionSingleton.getInstance(appName, conf)
+    println("start")
   }
 
   object SparkSessionSingleton {
     @transient private var instance: SparkSession = _
     def getInstance(appName : String, conf : Map[String, String]): SparkSession = {
       val sparkConf = new SparkConf().setAll(conf)
-      //      val warehouseLocation = "/user/hive/warehouse/"
+      //            val warehouseLocation = "/user/hive/warehouse/"
       if (instance == null) {
         instance = SparkSession
           .builder
           .config(sparkConf)
           .appName(appName)
-//          .config("spark.sql.warehouse.dir", conf.getOrElse("warehouse.dir", warehouseLocation))
-//          .config("spark.serializer",conf.getOrElse("warehouse.dir", "org.apache.spark.serializer.KryoSerializer"))
-//          .config("hive.exec.dynamic.partition", true)
-//          .config("hive.exec.dynamic.partition.mode", "nonstrict")
+          //          .config("spark.sql.warehouse.dir", conf.getOrElse("warehouse.dir", warehouseLocation))
+          //          .config("spark.serializer",conf.getOrElse("warehouse.dir", "org.apache.spark.serializer.KryoSerializer"))
+          //          .config("hive.exec.dynamic.partition", true)
+          //          .config("hive.exec.dynamic.partition.mode", "nonstrict")
           .enableHiveSupport()
           .getOrCreate()
       }

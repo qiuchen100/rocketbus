@@ -1,9 +1,9 @@
 package io.github.qiuchen100.rocketbus
 
 /**
- * 解析配置文件，并生成"application", "input", "compute", "output"相关配置
  * @Author: github.com/qiuchen100
- * @Description: TODO
+ * @Description: 解析配置文件，并生成"application", "input", "compute", "output"相关配置
+ * @param configFilePath 配置文件路径
  * @Date: 2020/3/23 23:49
  * @Modified By:
  **/
@@ -85,10 +85,10 @@ class ApplicationConfig(configFilePath: String) {
 
 }
 
-object ApplicationConfig {
+object ApplicationConfig extends App {
 
   def print(): Unit = {
-    val applicationConfig = new ApplicationConfig("e://application.production.conf")
+    val applicationConfig = new ApplicationConfig("d://work//ubas_nu_test.conf")
     println("----------global----------------")
     println(applicationConfig.globalConfig)
     println("----------input----------------")
@@ -98,4 +98,7 @@ object ApplicationConfig {
     println("----------output----------------")
     println(applicationConfig.outputProcessConfigs)
   }
+
+  print()
+
 }

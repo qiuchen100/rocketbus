@@ -10,8 +10,8 @@ import io.github.qiuchen100.rocketbus.api._
  * @Modified By:
  **/
 class DefaultEnd(sparkSession : SparkSession, appName: String, appMode: String,
-                 dependencies : Array[String], conf: Map[String, String])
-  extends AbstractEnd(sparkSession, appName, appMode, dependencies, conf){
+                 conf: Map[String, String])
+  extends AbstractEnd(sparkSession, appName, appMode, conf){
   override def execute(): Unit = {
     if (appMode == "batch") {
       sparkSession.stop()

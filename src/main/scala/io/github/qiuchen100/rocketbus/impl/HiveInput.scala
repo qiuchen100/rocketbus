@@ -28,3 +28,4 @@ class HiveInput(sparkSession : SparkSession, processName: String, processMode: S
   }
 
 }
+

@@ -19,12 +19,13 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <encoding>UTF-8</encoding>
     <scala.tools.version>2.11</scala.tools.version>
-    <scala.version>2.11.8</scala.version>
+    <scala.version>2.11.11</scala.version>
     <spark.version>2.4.0-cdh6.1.1</spark.version>
     <mysql.version>5.1.45</mysql.version>
     <scalikejdbc.version>2.5.0</scalikejdbc.version>
     <dbcp2.version>2.1.1</dbcp2.version>
     <hoodie.version>0.5.1-incubating</hoodie.version>
+    <mongo-spark.version>2.4.0</mongo-spark.version>
   </properties>
 
   <dependencies>
@@ -90,6 +91,21 @@
       <artifactId>hudi-spark-bundle_2.11</artifactId>
       <version>${hoodie.version}</version>
     </dependency>
+
+    <!-- MongoDB -->
+    <dependency>
+      <groupId>org.mongodb.spark</groupId>
+      <artifactId>mongo-spark-connector_2.11</artifactId>
+      <version>2.4.0</version>
+    </dependency>
+
+    <!-- ElasticSearch -->
+    <dependency>
+      <groupId>org.elasticsearch</groupId>
+      <artifactId>elasticsearch-spark-20_2.11</artifactId>
+      <version>7.3.2</version>
+    </dependency>
+
 
     <!-- Test -->
     <dependency>

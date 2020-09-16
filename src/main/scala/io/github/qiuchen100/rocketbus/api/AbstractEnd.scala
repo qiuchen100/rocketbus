@@ -9,7 +9,7 @@ import org.apache.spark.sql.SparkSession
  * @Modified By:
  **/
 abstract class AbstractEnd(sparkSession : SparkSession, appName: String, appMode: String,
-                           dependencies : Array[String], conf: Map[String, String])
+                           conf: Map[String, String])
   extends OutputProcess {
 
   val processName: String = "end"
@@ -26,5 +26,5 @@ abstract class AbstractEnd(sparkSession : SparkSession, appName: String, appMode
     result
   }
 
-  def getDependencies : Array[String] = this.dependencies
+  def getDependencies : Array[String] = Nil.toArray
 }

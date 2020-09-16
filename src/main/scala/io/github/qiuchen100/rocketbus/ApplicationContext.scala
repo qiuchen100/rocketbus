@@ -28,6 +28,9 @@ class ApplicationContext(applicationConfig: ApplicationConfig) {
     if (format == "hive") {
       new HiveInput(sparkSession, processName, processMode,
         format, conf.filter(cf => !Set("processName", "processMode", "format").contains(cf._1)))
+    } else if (format == "hudi") {
+      new DefaultInput(sparkSession, processName, processMode,
+        format, conf.filter(cf => !Set("processName", "processMode", "format").contains(cf._1)))
     } else {
       new DefaultInput(sparkSession, processName, processMode,
         format, conf.filter(cf => !Set("processName", "processMode", "format").contains(cf._1)))
@@ -51,6 +54,12 @@ class ApplicationContext(applicationConfig: ApplicationConfig) {
     if (format == "hive") {
       new HiveOutput(sparkSession, processName, processMode, format, sql,
         dependencies, conf.filter(cf => !Set("processName", "processMode", "format", "sql", "dependencies").contains(cf._1)))
+    } else if (format == "hudi") {
+      new HudiOutput(sparkSession, processName, processMode, format, sql,
+        dependencies, conf.filter(cf => !Set("processName", "processMode", "format", "sql", "dependencies").contains(cf._1)))
+    } else if (format == "hudi_binlog") {
+      new HudiBinlogOutput(sparkSession, processName, processMode, format, sql,
+        dependencies, conf.filter(cf => !Set("processName", "processMode", "format", "sql", "dependencies").contains(cf._1)))
     } else {
       new DefaultOutput(sparkSession, processName, processMode, format, sql,
         dependencies, conf.filter(cf => !Set("processName", "processMode", "format", "sql", "dependencies").contains(cf._1)))
@@ -61,13 +70,12 @@ class ApplicationContext(applicationConfig: ApplicationConfig) {
 
     val appName: String = conf("appName")
     val appMode: String = conf("appMode")
-    val dependencies = conf("dependencies").split(",")
     new DefaultEnd(sparkSession, appName, appMode,
-      dependencies, conf.filter(cf => !Set("appName", "appMode", "dependencies").contains(cf._1)))
+      conf.filter(cf => !Set("appName", "appMode").contains(cf._1)))
   }
 
   def createApplicationModel() : ApplicationModel = {
-    var applicationModel = new ApplicationModel
+    val applicationModel = new ApplicationModel
     val globalConfig = applicationConfig.globalConfig
     applicationModel.startProcess = loadStartProcess(globalConfig)
     val sparkSession = applicationModel.startProcess.getSparkSession

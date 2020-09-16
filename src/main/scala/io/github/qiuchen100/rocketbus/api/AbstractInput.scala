@@ -9,7 +9,7 @@ import org.apache.spark.sql.SparkSession
  * @Modified By:
  **/
 abstract class AbstractInput(sparkSession: SparkSession, processName: String, processMode: String,
-                            format: String, conf: Map[String, String])
+                             format: String, conf: Map[String, String])
   extends InputProcess {
 
   def getProcessName: String = processName

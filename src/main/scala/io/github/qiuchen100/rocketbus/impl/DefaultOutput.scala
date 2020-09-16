@@ -45,7 +45,6 @@ class DefaultOutput(sparkSession : SparkSession, processName: String, processMod
         .outputMode(conf("outputMode"))
         .options(options)
         .start()
-      query.awaitTermination()
     } else {
       throw new IllegalStateException(s"Wrong Configuration: processMode is wrong [${processMode}], must be batch or stream!")
     }
